@@ -10,6 +10,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
+      <div className="brand">Project Ember</div>
       <div className="nav-links">
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/workouts">Workouts</Link>
