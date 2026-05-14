@@ -133,7 +133,7 @@ const Login = () => {
               <div className="author-avatar" aria-hidden="true">AE</div>
               <div>
                 <p className="author-name">Allyza Espragera</p>
-                <p className="author-role">Head of Designer, Ember Inc.</p>
+                <p className="author-role">Head Designer, Ember Inc.</p>
               </div>
             </div>
           </div>

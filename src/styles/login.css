@@ -809,3 +809,435 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== REGISTER PAGE SPECIFIC STYLES ===== */
+
+/* Register card animation */
+.register-card {
+  animation: cardSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardSlideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Field focus effect */
+.field-wrap {
+  transition: all 0.2s ease;
+}
+
+.field-focused {
+  transform: translateY(-1px);
+}
+
+.field-focused .field-input {
+  border-color: #d63d79;
+  box-shadow: 0 0 0 3px rgba(214, 61, 121, 0.1);
+}
+
+/* Password strength meter */
+.password-strength {
+  margin-top: 8px;
+}
+
+.strength-bars {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.strength-bar {
+  height: 3px;
+  flex: 1;
+  background: #ede9e5;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.strength-bar.strength-level-1 {
+  background: #ff4d4d;
+  box-shadow: 0 0 4px rgba(255, 77, 77, 0.5);
+}
+
+.strength-bar.strength-level-2 {
+  background: #ffaa33;
+  box-shadow: 0 0 4px rgba(255, 170, 51, 0.5);
+}
+
+.strength-bar.strength-level-3 {
+  background: #33cc66;
+  box-shadow: 0 0 4px rgba(51, 204, 102, 0.5);
+}
+
+.strength-bar.strength-level-4 {
+  background: #d63d79;
+  box-shadow: 0 0 4px rgba(214, 61, 121, 0.5);
+}
+
+.strength-text {
+  font-size: 10px;
+  color: #888780;
+  letter-spacing: 0.3px;
+}
+
+/* Gender selector with modern icons */
+.gender-select-wrapper {
+  position: relative;
+  transition: all 0.2s ease;
+  border-radius: 10px;
+}
+
+.gender-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.gender-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #fafaf9;
+  border: 1.5px solid #e5e2df;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #5F5E5A;
+  transition: all 0.2s ease;
+}
+
+.gender-option svg {
+  transition: all 0.2s ease;
+}
+
+.gender-option:hover {
+  border-color: #d63d79;
+  background: rgba(214, 61, 121, 0.05);
+  transform: translateY(-2px);
+}
+
+.gender-option:hover svg {
+  stroke: #d63d79;
+}
+
+.gender-selected {
+  background: linear-gradient(135deg, rgba(232, 93, 145, 0.1), rgba(214, 61, 121, 0.1));
+  border-color: #d63d79;
+  color: #d63d79;
+}
+
+.gender-selected svg {
+  stroke: #d63d79;
+}
+
+.gender-select-hidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Submit button hover effect */
+.submit-register {
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-register::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.submit-register:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Number input spinners hidden */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Register card responsive adjustments */
+@media (max-width: 768px) {
+  .gender-icons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .gender-option {
+    justify-content: center;
+  }
+  
+  .strength-bars {
+    gap: 4px;
+  }
+}
+
+/* Loading animation enhancement */
+.submit-register .spinner {
+  width: 18px;
+  height: 18px;
+  border-width: 2px;
+}
+
+/* Hover glow effect for form card */
+.form-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Input focus ripple effect */
+.field-input:focus {
+  animation: ripple 0.4s ease-out;
+}
+
+@keyframes ripple {
+  0% { box-shadow: 0 0 0 0 rgba(214, 61, 121, 0.2); }
+  100% { box-shadow: 0 0 0 4px rgba(214, 61, 121, 0); }
+}
+
+/* ===== RESPONSIVE FIXES FOR LOGIN/REGISTER ===== */
+
+/* Tablet Landscape */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .login-panel {
+    width: 38%;
+  }
+  
+  .panel-inner {
+    padding: 36px 32px;
+  }
+  
+  .form-card {
+    padding: 36px 32px;
+    max-width: 380px;
+  }
+  
+  .headline-text {
+    font-size: 28px;
+  }
+}
+
+/* Tablet Portrait */
+@media (max-width: 768px) {
+  .login-root {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .login-panel {
+    width: 100%;
+    min-height: auto;
+    padding: 0;
+  }
+  
+  .panel-inner {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 28px;
+  }
+  
+  .panel-headline {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .headline-text {
+    font-size: 22px;
+  }
+  
+  .headline-sub {
+    font-size: 12px;
+  }
+  
+  .panel-stats,
+  .panel-testimonial {
+    display: none;
+  }
+  
+  .login-form-section {
+    padding: 32px 20px 48px;
+  }
+  
+  .form-card {
+    padding: 32px 28px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .form-title {
+    font-size: 24px;
+  }
+  
+  .social-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  /* Gender buttons for register on tablet */
+  .gender-icons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .gender-option {
+    flex: 1;
+    min-width: 100px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .login-panel {
+    display: none;
+  }
+  
+  .login-form-section {
+    min-height: 100vh;
+    padding: 24px 16px 32px;
+    background: #f8f4f2;
+    align-items: flex-start;
+  }
+  
+  .login-form-section::before {
+    display: none;
+  }
+  
+  .form-card {
+    border-radius: 24px;
+    padding: 28px 20px 32px;
+    max-width: 100%;
+    width: 100%;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-title {
+    font-size: 22px;
+  }
+  
+  .form-subtitle {
+    font-size: 13px;
+  }
+  
+  .social-btn {
+    height: 44px;
+    font-size: 13px;
+  }
+  
+  .field-input {
+    height: 44px;
+    font-size: 15px;
+  }
+  
+  .submit-btn {
+    height: 46px;
+    font-size: 14px;
+  }
+  
+  /* Gender buttons stack on mobile */
+  .gender-icons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .gender-option {
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  /* Weight & Age row stacks on mobile */
+  .field-group[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .form-card {
+    padding: 24px 16px 28px;
+  }
+  
+  .form-title {
+    font-size: 20px;
+  }
+  
+  .field-label {
+    font-size: 11px;
+  }
+  
+  .field-input {
+    height: 42px;
+    font-size: 14px;
+    padding: 0 12px 0 36px;
+  }
+  
+  .field-icon {
+    left: 10px;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .submit-btn {
+    height: 44px;
+    font-size: 13px;
+  }
+  
+  .register-cta {
+    font-size: 12px;
+  }
+  
+  .strength-bars {
+    gap: 4px;
+  }
+  
+  .strength-text {
+    font-size: 9px;
+  }
+}
+
+/* Very Small Devices */
+@media (max-width: 360px) {
+  .form-card {
+    padding: 20px 14px 24px;
+  }
+  
+  .form-title {
+    font-size: 18px;
+  }
+  
+  .social-btn span {
+    font-size: 12px;
+  }
+  
+  .gender-option span {
+    font-size: 12px;
+  }
+  
+  .pricing-price {
+    font-size: 2rem;
+  }
+}
