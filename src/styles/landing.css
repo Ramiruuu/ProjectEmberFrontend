@@ -1,0 +1,20 @@
+/* ===== LANDING PAGE ONLY - LIGHT THEME RESET ===== */
+.landing-page-root {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #FFFFFF;
+    color: #1A1A1A;
+}
+
+.landing-page-root * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Remove any body margins that might affect landing page */
+.landing-page-root body {
+    margin: 0;
+    padding: 0;
+}

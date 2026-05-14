@@ -1,4 +1,5 @@
-:root {
+/* ===== AUTHENTICATED PAGES ONLY - DARK THEME ===== */
+.auth-app {
   --bg-color: #1E1E24;
   --panel-bg: rgba(255, 255, 255, 0.08);
   --card-bg: rgba(255, 255, 255, 0.12);
@@ -11,13 +12,13 @@
   --radius: 22px;
 }
 
-* {
+.auth-app * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+.auth-app {
   font-family: 'Inter', Arial, sans-serif;
   background: radial-gradient(circle at top, rgba(255,94,0,0.12), transparent 32%),
     linear-gradient(180deg, #20202A 0%, #15151D 100%);
@@ -25,21 +26,21 @@ body {
   min-height: 100vh;
 }
 
-button,
-input,
-select {
+.auth-app button,
+.auth-app input,
+.auth-app select {
   font: inherit;
 }
 
-.app-shell {
+.auth-app .app-shell {
   min-height: 100vh;
 }
 
-.page-content {
+.auth-app .page-content {
   padding: 1.5rem 1.75rem 2rem;
 }
 
-.navbar {
+.auth-app .navbar {
   background: rgba(18, 18, 24, 0.82);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -50,20 +51,20 @@ select {
   gap: 1rem;
 }
 
-.navbar .brand {
+.auth-app .navbar .brand {
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--text-color);
   font-size: 1rem;
 }
 
-.nav-links {
+.auth-app .nav-links {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
 }
 
-.nav-links a {
+.auth-app .nav-links a {
   color: var(--muted);
   text-decoration: none;
   padding: 0.75rem 1rem;
@@ -71,13 +72,13 @@ select {
   transition: all 0.2s ease;
 }
 
-.nav-links a:hover,
-.nav-links a:focus-visible {
+.auth-app .nav-links a:hover,
+.auth-app .nav-links a:focus-visible {
   color: var(--text-color);
   background: rgba(255, 94, 0, 0.14);
 }
 
-.logout-btn {
+.auth-app .logout-btn {
   background: linear-gradient(135deg, #ff7a12, #ff4b00);
   color: #fff;
   border: none;
@@ -87,11 +88,11 @@ select {
   transition: transform 0.2s ease;
 }
 
-.logout-btn:hover {
+.auth-app .logout-btn:hover {
   transform: translateY(-1px);
 }
 
-.placeholder-page {
+.auth-app .placeholder-page {
   min-height: 70vh;
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.06);
@@ -103,14 +104,14 @@ select {
   padding: 3rem;
 }
 
-.auth-container {
+.auth-app .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 120px);
 }
 
-.auth-card {
+.auth-app .auth-card {
   background: var(--panel-bg);
   backdrop-filter: blur(20px);
   border: 1px solid var(--card-border);
@@ -120,19 +121,19 @@ select {
   width: clamp(320px, 100%, 420px);
 }
 
-.auth-card h2 {
+.auth-app .auth-card h2 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: var(--accent-color);
 }
 
-.auth-card form {
+.auth-app .auth-card form {
   display: grid;
   gap: 1rem;
 }
 
-.auth-card input,
-.auth-card select {
+.auth-app .auth-card input,
+.auth-app .auth-card select {
   padding: 0.95rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
@@ -140,11 +141,11 @@ select {
   color: var(--text-color);
 }
 
-.auth-card input::placeholder {
+.auth-app .auth-card input::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
-.auth-card button {
+.auth-app .auth-card button {
   background: linear-gradient(135deg, #ff7a12, #ff4b00);
   color: #fff;
   border: none;
@@ -154,33 +155,33 @@ select {
   transition: opacity 0.2s ease;
 }
 
-.auth-card button:hover {
+.auth-app .auth-card button:hover {
   opacity: 0.95;
 }
 
-.auth-card p {
+.auth-app .auth-card p {
   text-align: center;
   margin-top: 1rem;
   color: var(--muted);
 }
 
-.auth-card a {
+.auth-app .auth-card a {
   color: var(--accent-color);
   text-decoration: none;
 }
 
-.error {
+.auth-app .error {
   color: #ff8f82;
   text-align: center;
   margin-bottom: 1rem;
 }
 
-.dashboard-container {
+.auth-app .dashboard-container {
   display: grid;
   gap: 1.75rem;
 }
 
-.dashboard-header {
+.auth-app .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -192,7 +193,7 @@ select {
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.18);
 }
 
-.page-label {
+.auth-app .page-label {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--accent-color);
@@ -200,48 +201,48 @@ select {
   margin-bottom: 0.5rem;
 }
 
-.dashboard-header h1 {
+.auth-app .dashboard-header h1 {
   font-size: clamp(2rem, 2.6vw, 3rem);
   margin-bottom: 0.25rem;
 }
 
-.header-actions {
+.auth-app .header-actions {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
   align-items: flex-end;
 }
 
-.header-actions span {
+.auth-app .header-actions span {
   color: var(--muted);
 }
 
-.primary-btn,
-.secondary-btn {
+.auth-app .primary-btn,
+.auth-app .secondary-btn {
   border: none;
   border-radius: 16px;
   padding: 0.85rem 1.2rem;
   cursor: pointer;
 }
 
-.primary-btn {
+.auth-app .primary-btn {
   background: linear-gradient(135deg, #ff7a12, #ff4b00);
   color: #fff;
 }
 
-.secondary-btn {
+.auth-app .secondary-btn {
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-color);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.stats-grid {
+.auth-app .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
-.stat-card {
+.auth-app .stat-card {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 22px;
@@ -249,24 +250,24 @@ select {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
 }
 
-.stat-card h3 {
+.auth-app .stat-card h3 {
   color: var(--muted);
   margin-bottom: 0.75rem;
   font-size: 0.95rem;
 }
 
-.stat-card p {
+.auth-app .stat-card p {
   font-size: 1.7rem;
   font-weight: 700;
 }
 
-.dashboard-grid {
+.auth-app .dashboard-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 1.5rem;
 }
 
-.section-card {
+.auth-app .section-card {
   background: var(--panel-bg);
   border: 1px solid var(--card-border);
   border-radius: 28px;
@@ -277,33 +278,33 @@ select {
   box-shadow: var(--shadow);
 }
 
-.section-title-row {
+.auth-app .section-title-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
 }
 
-.section-title-row h2 {
+.auth-app .section-title-row h2 {
   font-size: 1.15rem;
   margin: 0;
 }
 
-.section-title-row span {
+.auth-app .section-title-row span {
   color: var(--muted);
   font-size: 0.95rem;
 }
 
-.large-card {
+.auth-app .large-card {
   min-height: 360px;
 }
 
-.plan-list {
+.auth-app .plan-list {
   display: grid;
   gap: 1rem;
 }
 
-.plan-row {
+.auth-app .plan-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -313,11 +314,11 @@ select {
   color: var(--text-color);
 }
 
-.chart-card {
+.auth-app .chart-card {
   min-height: 360px;
 }
 
-.chart-placeholder {
+.auth-app .chart-placeholder {
   flex: 1;
   display: grid;
   place-items: center;
@@ -328,16 +329,16 @@ select {
   font-size: 0.95rem;
 }
 
-.profile-card {
+.auth-app .profile-card {
   min-height: 360px;
 }
 
-.trainer-grid {
+.auth-app .trainer-grid {
   display: grid;
   gap: 1rem;
 }
 
-.trainer-card {
+.auth-app .trainer-card {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -346,7 +347,7 @@ select {
   background: rgba(255, 255, 255, 0.04);
 }
 
-.trainer-avatar {
+.auth-app .trainer-avatar {
   width: 52px;
   height: 52px;
   border-radius: 16px;
@@ -357,58 +358,58 @@ select {
   color: var(--accent-color);
 }
 
-.trainer-card h3 {
+.auth-app .trainer-card h3 {
   margin: 0;
 }
 
-.trainer-card p {
+.auth-app .trainer-card p {
   margin: 0.2rem 0 0;
   color: var(--muted);
 }
 
-.bottom-card {
+.auth-app .bottom-card {
   grid-column: 1 / -1;
 }
 
-.bottom-copy {
+.auth-app .bottom-copy {
   color: var(--muted);
   line-height: 1.8;
 }
 
 @media (max-width: 1150px) {
-  .dashboard-grid {
+  .auth-app .dashboard-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 900px) {
-  .stats-grid {
+  .auth-app .stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 640px) {
-  .page-content {
+  .auth-app .page-content {
     padding: 1rem;
   }
 
-  .navbar {
+  .auth-app .navbar {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .nav-links {
+  .auth-app .nav-links {
     justify-content: center;
   }
 
-  .dashboard-header,
-  .section-card,
-  .stat-card,
-  .auth-card {
+  .auth-app .dashboard-header,
+  .auth-app .section-card,
+  .auth-app .stat-card,
+  .auth-app .auth-card {
     border-radius: 20px;
   }
 
-  .stats-grid {
+  .auth-app .stats-grid {
     grid-template-columns: 1fr;
   }
 }
