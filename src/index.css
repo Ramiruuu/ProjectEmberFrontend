@@ -413,3 +413,22 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Remove padding on dashboard pages */
+.auth-app .page-content {
+  padding: 0 !important;
+}
+
+/* Remove padding from main content */
+.page-content {
+  padding: 0 !important;
+}
+
+.placeholder-page {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888780;
+  font-size: 1rem;
+}
