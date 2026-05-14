@@ -1,50 +1,79 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from '../api/axios';
+import LoadingSpinner from '../components/LoadingSpinner';
 import './Dashboard.css';
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const [activeNav, setActiveNav] = useState('dashboard');
+    const [user, setUser] = useState(null);
+    const [workouts, setWorkouts] = useState([]);
+    const [comparison, setComparison] = useState({ running: 0, gym: 0 });
+    const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
 
-    const user = {
-        name: 'Jane Dela Cruz',
-        initials: 'JD',
-        email: 'jane@emberfit.com'
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const [userRes, workoutsRes, compRes] = await Promise.all([
+                api.get('/user'),
+                api.get('/workouts'),
+                api.get('/comparison')
+            ]);
+            setUser(userRes.data);
+            setWorkouts(workoutsRes.data);
+            setComparison(compRes.data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            if (error.response?.status === 401) {
+                localStorage.removeItem('token');
+                navigate('/login');
+            }
+        } finally {
+            setLoading(false);
+        }
     };
 
+    const totalCalories = workouts.reduce((sum, w) => sum + parseFloat(w.calories_burned), 0);
+    const runningEfficiency = comparison.running;
+    const gymEfficiency = comparison.gym;
+    const pct = gymEfficiency > 0 ? Math.round(((runningEfficiency - gymEfficiency) / gymEfficiency) * 100) : 0;
+
     const stats = [
-        { label: 'Total Calories', value: '1,847', sub: 'cal this week' },
-        { label: 'Running Efficiency', value: '11.2', sub: 'cal/min avg' },
-        { label: 'Gym Efficiency', value: '8.4', sub: 'cal/min avg' },
-        { label: 'Total Distance', value: '42', sub: 'km this month' },
+        { label: 'Total Calories', value: totalCalories.toFixed(0), sub: 'cal this week' },
+        { label: 'Running Efficiency', value: runningEfficiency.toFixed(1), sub: 'cal/min avg' },
+        { label: 'Gym Efficiency', value: gymEfficiency.toFixed(1), sub: 'cal/min avg' },
+        { label: 'Total Distance', value: workouts.filter(w => w.type === 'run').reduce((sum, w) => sum + (w.details?.distance_km || 0), 0).toFixed(0), sub: 'km this month' },
     ];
 
     const calPerMin = [
-        { label: 'Running', value: 11.2, max: 15 },
-        { label: 'Gym', value: 8.4, max: 15 },
+        { label: 'Running', value: runningEfficiency, max: Math.max(runningEfficiency, gymEfficiency) + 2 },
+        { label: 'Gym', value: gymEfficiency, max: Math.max(runningEfficiency, gymEfficiency) + 2 },
     ];
 
-    const schedule = [
-        { name: 'Morning Run', time: 'Today · 5:00 PM', today: true },
-        { name: 'Upper Body Workout', time: 'Tomorrow · 4:00 PM', today: false },
-    ];
-
-    const activities = [
-        { name: '5km Run', duration: '28 min', calories: '314 cal' },
-        { name: 'Bench Press', duration: '20 min', calories: '112 cal' },
-        { name: 'Interval Run', duration: '15 min', calories: '198 cal' },
-    ];
-
-    const running = calPerMin.find(d => d.label === 'Running');
-    const gym = calPerMin.find(d => d.label === 'Gym');
-    const pct = running && gym ? Math.round(((running.value - gym.value) / gym.value) * 100) : 0;
+    const recentWorkouts = workouts.slice(0, 3).map(w => ({
+        name: w.activity_name,
+        duration: `${w.duration_minutes} min`,
+        calories: `${w.calories_burned} cal`
+    }));
 
     const handleNavigation = (nav) => {
         setActiveNav(nav);
         if (nav === 'logout') {
             localStorage.removeItem('token');
-            window.location.href = '/login';
+            navigate('/login');
+        } else {
+            navigate(`/${nav}`);
         }
     };
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <div className="dashboard-app">
@@ -108,7 +137,7 @@ const Dashboard = () => {
                 <div className="sidebar-spacer"></div>
 
                 <div className="sidebar-user">
-                    <div className="user-avatar">{user.initials}</div>
+                    <div className="user-avatar">{user.name.split(' ').map(n => n[0]).join('')}</div>
                     <div className="user-info">
                         <div className="user-name">{user.name}</div>
                         <div className="user-email">{user.email}</div>
@@ -155,25 +184,29 @@ const Dashboard = () => {
                         ))}
                         <div className="insight-box">
                             <div className="insight-label">Insight</div>
-                            <div className="insight-text">Running is {pct}% more efficient than gym workouts today. Keep up the pace!</div>
+                            <div className="insight-text">
+                                {pct > 0 ? `Running is ${pct}% more efficient than gym workouts.` :
+                                pct < 0 ? `Gym workouts are ${Math.abs(pct)}% more efficient than running.` :
+                                `Running and gym workouts have similar efficiency.`}
+                            </div>
                         </div>
                     </div>
 
                     <div className="schedule-card">
-                        <div className="card-title">Upcoming Workouts</div>
-                        {schedule.map((item, index) => (
-                            <div key={index} className={`schedule-item ${item.today ? 'today' : ''}`}>
-                                <div className={`schedule-dot ${item.today ? '' : 'tomorrow'}`} />
+                        <div className="card-title">Recent Workouts</div>
+                        {recentWorkouts.map((item, index) => (
+                            <div key={index} className="schedule-item">
+                                <div className="schedule-dot" />
                                 <div>
-                                    <div className="schedule-name">
-                                        {item.name}
-                                        {item.today && <span className="today-pill">Today</span>}
-                                    </div>
-                                    <div className="schedule-time">{item.time}</div>
+                                    <div className="schedule-name">{item.name}</div>
+                                    <div className="schedule-time">{item.duration} • {item.calories}</div>
                                 </div>
                                 <div className="schedule-arrow">→</div>
                             </div>
                         ))}
+                        {recentWorkouts.length === 0 && (
+                            <div className="no-workouts">No workouts yet. Add your first workout!</div>
+                        )}
                     </div>
                 </div>
 
@@ -187,7 +220,7 @@ const Dashboard = () => {
                             <tr><th>Activity</th><th>Duration</th><th>Calories</th><th>Actions</th></tr>
                         </thead>
                         <tbody>
-                            {activities.map((row, index) => (
+                            {recentWorkouts.map((row, index) => (
                                 <tr key={index}>
                                     <td data-label="Activity"><div className="act-name">{row.name}</div></td>
                                     <td data-label="Duration"><span className="dur-badge">{row.duration}</span></td>
@@ -200,8 +233,8 @@ const Dashboard = () => {
                 </div>
 
                 <div className="actions-row">
-                    <button className="btn-primary">Add Run</button>
-                    <button className="btn-primary">Add Gym Workout</button>
+                    <button className="btn-primary" onClick={() => navigate('/add-workout?type=run')}>Add Run</button>
+                    <button className="btn-primary" onClick={() => navigate('/add-workout?type=gym')}>Add Gym Workout</button>
                     <button className="btn-outline">Export Report</button>
                 </div>
             </main>
